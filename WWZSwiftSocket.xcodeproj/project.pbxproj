@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21777D049C37B75D565E3740 /* Pods_WWZSwiftSocketTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 477473DD56193CE0A3DAAD66 /* Pods_WWZSwiftSocketTests.framework */; };
 		B0B38D9E1E80CC1100E24D76 /* WWZSwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B38D941E80CC1000E24D76 /* WWZSwiftSocket.framework */; };
 		B0B38DA31E80CC1100E24D76 /* WWZSwiftSocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B38DA21E80CC1100E24D76 /* WWZSwiftSocketTests.swift */; };
 		B0B38DA51E80CC1100E24D76 /* WWZSwiftSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = B0B38D971E80CC1000E24D76 /* WWZSwiftSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -14,6 +15,7 @@
 		B0B38DB41E80CD4300E24D76 /* WWZTCPSocketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B38DB01E80CD4300E24D76 /* WWZTCPSocketClient.swift */; };
 		B0B38DB51E80CD4300E24D76 /* WWZTCPSocketRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B38DB11E80CD4300E24D76 /* WWZTCPSocketRequest.swift */; };
 		B0B38DB61E80CD4300E24D76 /* WWZUDPSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B38DB21E80CD4300E24D76 /* WWZUDPSocket.swift */; };
+		C37D393CF3A12C3F52FB1231 /* Pods_WWZSwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52238DBC00A3259132C8141D /* Pods_WWZSwiftSocket.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +29,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		477473DD56193CE0A3DAAD66 /* Pods_WWZSwiftSocketTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WWZSwiftSocketTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		52238DBC00A3259132C8141D /* Pods_WWZSwiftSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WWZSwiftSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		759585676696935B6575E299 /* Pods-WWZSwiftSocketTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WWZSwiftSocketTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WWZSwiftSocketTests/Pods-WWZSwiftSocketTests.release.xcconfig"; sourceTree = "<group>"; };
+		9399E351A45B3D42B8362AA6 /* Pods-WWZSwiftSocket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WWZSwiftSocket.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WWZSwiftSocket/Pods-WWZSwiftSocket.debug.xcconfig"; sourceTree = "<group>"; };
+		96A3B4C7C2D769D118F7CAE5 /* Pods-WWZSwiftSocketTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WWZSwiftSocketTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WWZSwiftSocketTests/Pods-WWZSwiftSocketTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A0224A72D2BC6434AE9DDDB9 /* Pods-WWZSwiftSocket.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WWZSwiftSocket.release.xcconfig"; path = "Pods/Target Support Files/Pods-WWZSwiftSocket/Pods-WWZSwiftSocket.release.xcconfig"; sourceTree = "<group>"; };
 		B0B38D941E80CC1000E24D76 /* WWZSwiftSocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WWZSwiftSocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0B38D971E80CC1000E24D76 /* WWZSwiftSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WWZSwiftSocket.h; sourceTree = "<group>"; };
 		B0B38D981E80CC1000E24D76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -44,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C37D393CF3A12C3F52FB1231 /* Pods_WWZSwiftSocket.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,12 +61,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0B38D9E1E80CC1100E24D76 /* WWZSwiftSocket.framework in Frameworks */,
+				21777D049C37B75D565E3740 /* Pods_WWZSwiftSocketTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1757F680836371925977A8D8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9399E351A45B3D42B8362AA6 /* Pods-WWZSwiftSocket.debug.xcconfig */,
+				A0224A72D2BC6434AE9DDDB9 /* Pods-WWZSwiftSocket.release.xcconfig */,
+				96A3B4C7C2D769D118F7CAE5 /* Pods-WWZSwiftSocketTests.debug.xcconfig */,
+				759585676696935B6575E299 /* Pods-WWZSwiftSocketTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		B0B38D8A1E80CC1000E24D76 = {
 			isa = PBXGroup;
 			children = (
@@ -65,6 +86,8 @@
 				B0B38D961E80CC1000E24D76 /* WWZSwiftSocket */,
 				B0B38DA11E80CC1100E24D76 /* WWZSwiftSocketTests */,
 				B0B38D951E80CC1000E24D76 /* Products */,
+				1757F680836371925977A8D8 /* Pods */,
+				C55D6ACE393940CF03C96C24 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,6 +129,15 @@
 			path = Source;
 			sourceTree = "<group>";
 		};
+		C55D6ACE393940CF03C96C24 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				52238DBC00A3259132C8141D /* Pods_WWZSwiftSocket.framework */,
+				477473DD56193CE0A3DAAD66 /* Pods_WWZSwiftSocketTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -124,10 +156,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B0B38DA81E80CC1100E24D76 /* Build configuration list for PBXNativeTarget "WWZSwiftSocket" */;
 			buildPhases = (
+				6FC2F1437E5705EDF9CAA2D4 /* [CP] Check Pods Manifest.lock */,
 				B0B38D8F1E80CC1000E24D76 /* Sources */,
 				B0B38D901E80CC1000E24D76 /* Frameworks */,
 				B0B38D911E80CC1000E24D76 /* Headers */,
 				B0B38D921E80CC1000E24D76 /* Resources */,
+				314A52850F921E0517216AF5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -142,9 +176,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B0B38DAB1E80CC1100E24D76 /* Build configuration list for PBXNativeTarget "WWZSwiftSocketTests" */;
 			buildPhases = (
+				FD280268462A289D9ABBA12D /* [CP] Check Pods Manifest.lock */,
 				B0B38D991E80CC1100E24D76 /* Sources */,
 				B0B38D9A1E80CC1100E24D76 /* Frameworks */,
 				B0B38D9B1E80CC1100E24D76 /* Resources */,
+				7B630DBD3A6D833DF5EBBBF9 /* [CP] Embed Pods Frameworks */,
+				D5A9E6CB038B1BA3B55E8852 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -213,6 +250,84 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		314A52850F921E0517216AF5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WWZSwiftSocket/Pods-WWZSwiftSocket-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6FC2F1437E5705EDF9CAA2D4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7B630DBD3A6D833DF5EBBBF9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WWZSwiftSocketTests/Pods-WWZSwiftSocketTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D5A9E6CB038B1BA3B55E8852 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WWZSwiftSocketTests/Pods-WWZSwiftSocketTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FD280268462A289D9ABBA12D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B0B38D8F1E80CC1000E24D76 /* Sources */ = {
@@ -346,6 +461,7 @@
 		};
 		B0B38DA91E80CC1100E24D76 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9399E351A45B3D42B8362AA6 /* Pods-WWZSwiftSocket.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -367,6 +483,7 @@
 		};
 		B0B38DAA1E80CC1100E24D76 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A0224A72D2BC6434AE9DDDB9 /* Pods-WWZSwiftSocket.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -387,6 +504,7 @@
 		};
 		B0B38DAC1E80CC1100E24D76 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96A3B4C7C2D769D118F7CAE5 /* Pods-WWZSwiftSocketTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = J46LC7KBX4;
@@ -400,6 +518,7 @@
 		};
 		B0B38DAD1E80CC1100E24D76 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 759585676696935B6575E299 /* Pods-WWZSwiftSocketTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = J46LC7KBX4;

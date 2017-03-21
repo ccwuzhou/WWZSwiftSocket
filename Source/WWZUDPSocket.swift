@@ -11,7 +11,7 @@ import CocoaAsyncSocket
 
 public protocol WWZUDPSocketDelegate : NSObjectProtocol {
     
-    func udpSocket(udpSocket: WWZUDPSocket, didReceiveData: Data, fromHost: String)
+    func udpSocket(udpSocket: WWZUDPSocket, didReceiveData data: Data, fromHost host: String)
 }
 
 open class WWZUDPSocket: NSObject {
