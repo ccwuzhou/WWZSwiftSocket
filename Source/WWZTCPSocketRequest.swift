@@ -156,7 +156,7 @@ extension WWZTCPSocketRequest {
         if self.p_canRemoveObserver(name: noti_name) {
         
             // 移除通知
-            NotificationCenter.default.removeObserver(self, name: NSNotification.Name(key), object: nil)
+            NotificationCenter.default.removeObserver(self, name: NSNotification.Name(noti_name), object: nil)
         }
     }
     
