@@ -87,7 +87,6 @@ open class WWZTCPSocketRequest: NSObject {
         let noti_name = WWZTCPSocketRequest.noti_prefix + "_" + api
         
         guard success != nil || failure != nil else {
-        
             // 发送请求
             socket.sendToServer(data: data)
             return
@@ -95,6 +94,9 @@ open class WWZTCPSocketRequest: NSObject {
         
         // 添加通知
         NotificationCenter.default.addObserver(self, selector: #selector(WWZTCPSocketRequest.p_getResultNoti), name: NSNotification.Name(noti_name), object: nil)
+        
+        // 发送请求
+        socket.sendToServer(data: data)
         
         let model = WWZSocketRequestModel(name: noti_name, success: success, failure: failure)
     
