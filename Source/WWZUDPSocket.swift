@@ -24,9 +24,9 @@ open class WWZUDPSocket: NSObject {
         return socket
     }()
     
-    public var delegate : WWZUDPSocketDelegate?
+    public weak var delegate : WWZUDPSocketDelegate?
     
-    // 开始监听
+    /// 开始监听
     public func startListen(port: UInt16) {
         
         try? self.udpSocket.bind(toPort: port)
@@ -37,13 +37,13 @@ open class WWZUDPSocket: NSObject {
     }
     
     
-    // 广播数据
+    /// 广播数据
     public func broadCastMessage(message: String, toPort: UInt16) {
     
         self.send(message: message, toHost: "255.255.255.255", port: toPort)
     }
     
-    // 发送数据
+    /// 发送数据
     public func send(message: String, toHost host: String, port: UInt16){
     
         guard let data = message.data(using: .utf8) else {return}
@@ -51,12 +51,12 @@ open class WWZUDPSocket: NSObject {
         self.send(data: data, toHost: host, port: port)
     }
     
-    // 发送数据
+    /// 发送数据
     public func send(data: Data, toHost host: String, port: UInt16) {
     
         self.udpSocket.send(data, toHost: host, port: port, withTimeout: -1, tag: 0)
     }
-    
+    /// 关闭
     public func close() {
     
         self.udpSocket.close()

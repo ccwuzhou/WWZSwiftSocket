@@ -137,7 +137,7 @@ extension WWZTCPSocketRequest {
             
             removeIndex = i
             
-            if retcode != -1 {
+            if retcode == 0 || retcode == 100 {
                 
                 model.success?(noti.object)
                 

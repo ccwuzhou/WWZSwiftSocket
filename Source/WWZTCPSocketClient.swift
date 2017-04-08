@@ -16,7 +16,7 @@ private let WRITE_TAG : Int = 1
 private let READ_TAG : Int = 0
 
 // MARK: -代理协议
-public protocol WWZTCPSocketClientDelegate {
+public protocol WWZTCPSocketClientDelegate : NSObjectProtocol {
     
     /// 连接成功回调
     func socket(_ socket: WWZTCPSocketClient, didConnectToHost host: String, port: UInt16)
@@ -33,7 +33,7 @@ open class WWZTCPSocketClient: NSObject {
 
     // MARK: -公开属性
     /// 代理
-    public var delegate : WWZTCPSocketClientDelegate?
+    public weak var delegate : WWZTCPSocketClientDelegate?
     
     /// 读取结束符
     public var endKeyString : String? {
