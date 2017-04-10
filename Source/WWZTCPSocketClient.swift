@@ -30,14 +30,14 @@ public protocol WWZTCPSocketClientDelegate : NSObjectProtocol {
 
 // MARK: -tcp socket
 open class WWZTCPSocketClient: NSObject {
-
+    
     // MARK: -公开属性
     /// 代理
     public weak var delegate : WWZTCPSocketClientDelegate?
     
     /// 读取结束符
     public var endKeyString : String? {
-    
+        
         didSet {
             
             self.endKeyData = endKeyString?.data(using: .utf8)
@@ -48,7 +48,7 @@ open class WWZTCPSocketClient: NSObject {
     
     // MARK: -懒加载属性
     fileprivate lazy var socket : GCDAsyncSocket = GCDAsyncSocket(delegate: self, delegateQueue: DispatchQueue(label: "WWZTCPSocketClient"))
-
+    
     // MARK: -公有方法
     /// connect to server
     ///
@@ -70,7 +70,7 @@ open class WWZTCPSocketClient: NSObject {
             print("connect fail")
         }
     }
-
+    
     /// disconnect server
     public func disconnect() {
         
@@ -106,7 +106,7 @@ open class WWZTCPSocketClient: NSObject {
     ///     - data:  data
     /// - Returns: none
     public func sendToServer(data: Data?) {
-
+        
         guard let data = data else {
             return
         }
@@ -126,11 +126,7 @@ extension WWZTCPSocketClient : GCDAsyncSocketDelegate {
         
         DispatchQueue.main.async {
             
-            guard let delegate = self.delegate else {
-                
-                return
-            }
-            delegate.socket(self, didConnectToHost: host, port: port)
+            self.delegate?.socket(self, didConnectToHost: host, port: port)
         }
         // 连接成功开始读数据
         self.p_continueToRead()
@@ -153,18 +149,14 @@ extension WWZTCPSocketClient : GCDAsyncSocketDelegate {
         
         DispatchQueue.main.async {
             
-            guard let delegate = self.delegate else {
-                
-                return
-            }
-            delegate.socket(self, didDisconnectWithError: err)
+            self.delegate?.socket(self, didDisconnectWithError: err)
         }
     }
-
+    
 }
 // MARK: -私有方法
 extension WWZTCPSocketClient {
-
+    
     // MARK: -私有方法
     /// 处理收到的数据
     fileprivate func p_handleReadData(data: Data) {
@@ -192,12 +184,10 @@ extension WWZTCPSocketClient {
         // Data转String失败
         guard let resultString = String(data: readData, encoding: .utf8) else {
             
-            if let delegate = self.delegate {
+            
+            DispatchQueue.main.async {
                 
-                DispatchQueue.main.async {
-                    
-                    delegate.socket(self, didRead: readData)
-                }
+                self.delegate?.socket(self, didRead: readData)
             }
             
             self.p_continueToRead()
@@ -206,25 +196,20 @@ extension WWZTCPSocketClient {
         }
         // json解析失败
         guard let result = try? JSONSerialization.jsonObject(with: readData, options: .mutableContainers) else {
-        
-            if let delegate = self.delegate {
+            
+            DispatchQueue.main.async {
                 
-                DispatchQueue.main.async {
-                    
-                    delegate.socket(self, didRead: resultString)
-                }
+                self.delegate?.socket(self, didRead: resultString)
             }
+            
             self.p_continueToRead()
             
             return;
         }
         
-        if let delegate = self.delegate {
+        DispatchQueue.main.async {
             
-            DispatchQueue.main.async {
-                
-                delegate.socket(self, didRead: result)
-            }
+            self.delegate?.socket(self, didRead: result)
         }
         
         // 读完当前数据后继续读数

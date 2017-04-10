@@ -69,9 +69,6 @@ extension WWZUDPSocket : GCDAsyncUdpSocketDelegate {
         
         guard let host = GCDAsyncUdpSocket.host(fromAddress: address) else { return }
         
-        if let delegate = self.delegate {
-            
-            delegate.udpSocket(udpSocket: self, didReceiveData: data, fromHost: host)
-        }
+        self.delegate?.udpSocket(udpSocket: self, didReceiveData: data, fromHost: host)
     }
 }

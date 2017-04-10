@@ -49,10 +49,7 @@ open class WWZSocketPong: NSObject {
             
             WWZTCPSocketRequest.shared.requestTimeout = 10
             
-            if let handle = self.timeoutHandle {
-                
-                handle()
-            }
+            self.timeoutHandle?()
         }
     }
     
