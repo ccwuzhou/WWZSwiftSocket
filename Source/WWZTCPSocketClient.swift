@@ -209,11 +209,25 @@ extension WWZTCPSocketClient {
         
         DispatchQueue.main.async {
             
+            self.p_postNotification(result: result)
+            
             self.delegate?.socket(self, didRead: result)
         }
         
         // 读完当前数据后继续读数
         self.p_continueToRead()
+    }
+    /// 发送通知
+    fileprivate func p_postNotification(result: Any){
+        
+        guard let jsonDict = result as? [String: Any] else { return }
+        
+        let resultModel = WWZSocketResult(json: jsonDict)
+        
+        guard let api = resultModel.api else { return }
+        
+        NotificationCenter.default.post(name: NSNotification.Name("\(WWZTCPSocketRequest.noti_prefix)_\(api)"), object: resultModel)
+        
     }
     /// 读数据
     fileprivate func p_continueToRead() {

@@ -8,6 +8,24 @@
 
 import UIKit
 
+open class WWZSocketResult : NSObject {
+    
+    public var api: String?
+    public var app: String?
+    public var co: String?
+    public var data: Any?
+    public var retcode: String?
+    public var retmsg: String?
+    
+    convenience public init(json: [String: Any]) {
+        
+        self.init()
+        
+        self.setValuesForKeys(json)
+    }
+    override open func setValue(_ value: Any?, forUndefinedKey key: String) {}
+}
+
 fileprivate struct WWZSocketRequestModel {
     
     var name : String
@@ -28,8 +46,8 @@ open class WWZTCPSocketRequest: NSObject {
     public var requestTimeout : TimeInterval = 10.0
     
     // MARK: -私有属性
-    fileprivate var APP_PARAM = "wwz"
-    fileprivate var CO_PARAM = "wwz"
+    fileprivate var APP_PARAM : String?
+    fileprivate var CO_PARAM : String?
     
     fileprivate var tcpSocket : WWZTCPSocketClient?
 
@@ -43,8 +61,8 @@ open class WWZTCPSocketRequest: NSObject {
     public func setSocket(socket: WWZTCPSocketClient, app_param: String?, co_param: String?) {
         
         self.tcpSocket = socket
-        self.APP_PARAM = app_param ?? "wwz"
-        self.CO_PARAM = co_param ?? "wwz"
+        self.APP_PARAM = app_param
+        self.CO_PARAM = co_param
     }
     
     /// request
@@ -104,11 +122,20 @@ open class WWZTCPSocketRequest: NSObject {
         // 超时处理
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() +  self.requestTimeout) {
             
-            if model.failure == nil { return }
-            
-            let noti = Notification(name: Notification.Name(noti_name), object: nil, userInfo: ["-1" : "request time out"])
-            
-            self.p_getResultNoti(noti: noti)
+            self.mRequestModels.forEach({ (model) in
+                
+                if model.name == noti_name && model.failure != nil {
+                    
+                    let socketResult = WWZSocketResult()
+                    
+                    socketResult.retcode = "-1"
+                    socketResult.retmsg = "request time out"
+                    
+                    let noti = Notification(name: Notification.Name(noti_name), object: socketResult)
+                    
+                    self.p_getResultNoti(noti: noti)
+                }
+            })
         }
     }
 }
@@ -121,40 +148,30 @@ extension WWZTCPSocketRequest {
         
         let noti_name = noti.name.rawValue
         
-        guard let userInfo = noti.userInfo, noti.userInfo!.count > 0 else { return }
+        guard let socketModel = noti.object as? WWZSocketResult else { return }
         
-        guard let key = userInfo.first?.key as? String else { return }
+        guard let retcodeString = socketModel.retcode, let retcode = Int(retcodeString) else { return }
         
-        guard let retcode = Int(key) else { return }
-        
-        var removeIndex : Int?
-        
-        for i in 0..<self.mRequestModels.count {
-            
-            let model = self.mRequestModels[i]
+        for (index, model) in self.mRequestModels.enumerated() {
             
             guard model.name == noti_name else { continue }
             
-            removeIndex = i
-            
-            if retcode == 0 || retcode == 100 {
+            if retcode != -1 {
                 
-                model.success?(noti.object)
+                model.success?(socketModel.data)
                 
             }else{
                 
-                model.failure?(NSError(domain: NSCocoaErrorDomain, code: retcode, userInfo: ["error": userInfo.first?.value]))
+                model.failure?(NSError(domain: NSCocoaErrorDomain, code: retcode, userInfo: ["error": socketModel.retmsg ?? "unknown error"]))
             }
+            // 执行完移除回调
+            self.mRequestModels.remove(at: index)
+            
             break
         }
         
-        // 执行完移除回调
-        if let index = removeIndex {
-            self.mRequestModels.remove(at: index)
-        }
-        
         if self.p_canRemoveObserver(name: noti_name) {
-        
+            
             // 移除通知
             NotificationCenter.default.removeObserver(self, name: NSNotification.Name(noti_name), object: nil)
         }
@@ -179,6 +196,16 @@ extension WWZTCPSocketRequest {
         
         param = param.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: "  \"", with: "\"").replacingOccurrences(of: " : ", with: ":")
         
-        return String(format: "{\"app\":\"%@\",\"co\":\"%@\",\"api\":\"%@\",\"data\":%@}\n", self.APP_PARAM, self.CO_PARAM, api, param)
+        var message = "{"
+        
+        if let app = self.APP_PARAM {
+            message = message.appendingFormat("\"app\":\"%@\",", app)
+        }
+        if let co = self.CO_PARAM {
+            
+            message = message.appendingFormat("\"co\":\"%@\",", co)
+        }
+        
+        return message.appendingFormat("\"api\":\"%@\",\"data\":%@}\n", api, param)
     }
 }
