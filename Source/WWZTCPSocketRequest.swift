@@ -8,24 +8,6 @@
 
 import UIKit
 
-open class WWZSocketResult : NSObject {
-    
-    public var api: String?
-    public var app: String?
-    public var co: String?
-    public var data: Any?
-    public var retcode: String?
-    public var retmsg: String?
-    
-    convenience public init(json: [String: Any]) {
-        
-        self.init()
-        
-        self.setValuesForKeys(json)
-    }
-    override open func setValue(_ value: Any?, forUndefinedKey key: String) {}
-}
-
 fileprivate struct WWZSocketRequestModel {
     
     var name : String
@@ -39,6 +21,10 @@ open class WWZTCPSocketRequest: NSObject {
     /// api前缀
     public static let noti_prefix = "wwz"
     
+    public var tcpSocket : WWZTCPSocketClient?
+    
+    /// 请求模版@"{\"app\":\"kjd\",\"co\":\"kjd\",\"api\":\"[api]\",\"data\":[param]}\n"
+    public var api_model : String?
     /// 单例
     public static let shared : WWZTCPSocketRequest = WWZTCPSocketRequest()
     
@@ -46,24 +32,7 @@ open class WWZTCPSocketRequest: NSObject {
     public var requestTimeout : TimeInterval = 10.0
     
     // MARK: -私有属性
-    fileprivate var APP_PARAM : String?
-    fileprivate var CO_PARAM : String?
-    
-    fileprivate var tcpSocket : WWZTCPSocketClient?
-
     fileprivate var mRequestModels = [WWZSocketRequestModel]()
-    
-    /// set socket parameters
-    ///
-    /// - Parameters:
-    ///     - socket:  WWZTCPSocketClient
-    /// - Returns: none
-    public func setSocket(socket: WWZTCPSocketClient, app_param: String?, co_param: String?) {
-        
-        self.tcpSocket = socket
-        self.APP_PARAM = app_param
-        self.CO_PARAM = co_param
-    }
     
     /// request
     public func request(api: String, parameters: Any, success: ((_ result: Any)->())?, failure: ((_ error: Error)->())?){
@@ -126,12 +95,7 @@ open class WWZTCPSocketRequest: NSObject {
                 
                 if model.name == noti_name && model.failure != nil {
                     
-                    let socketResult = WWZSocketResult()
-                    
-                    socketResult.retcode = "-1"
-                    socketResult.retmsg = "request time out"
-                    
-                    let noti = Notification(name: Notification.Name(noti_name), object: socketResult)
+                    let noti = Notification(name: Notification.Name(noti_name), object: nil)
                     
                     self.p_getResultNoti(noti: noti)
                 }
@@ -148,21 +112,17 @@ extension WWZTCPSocketRequest {
         
         let noti_name = noti.name.rawValue
         
-        guard let socketModel = noti.object as? WWZSocketResult else { return }
-        
-        guard let retcodeString = socketModel.retcode, let retcode = Int(retcodeString) else { return }
-        
         for (index, model) in self.mRequestModels.enumerated() {
             
             guard model.name == noti_name else { continue }
             
-            if retcode != -1 {
+            if noti.object != nil {
                 
-                model.success?(socketModel.data)
+                model.success?(noti.object)
                 
             }else{
                 
-                model.failure?(NSError(domain: NSCocoaErrorDomain, code: retcode, userInfo: ["error": socketModel.retmsg ?? "unknown error"]))
+                model.failure?(NSError(domain: NSCocoaErrorDomain, code: -1, userInfo: ["error": "request error"]))
             }
             // 执行完移除回调
             self.mRequestModels.remove(at: index)
@@ -196,16 +156,10 @@ extension WWZTCPSocketRequest {
         
         param = param.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: "  \"", with: "\"").replacingOccurrences(of: " : ", with: ":")
         
-        var message = "{"
-        
-        if let app = self.APP_PARAM {
-            message = message.appendingFormat("\"app\":\"%@\",", app)
-        }
-        if let co = self.CO_PARAM {
-            
-            message = message.appendingFormat("\"co\":\"%@\",", co)
+        guard let api_model = self.api_model else{
+            return nil
         }
         
-        return message.appendingFormat("\"api\":\"%@\",\"data\":%@}\n", api, param)
+        return api_model.replacingOccurrences(of: "[api]", with: api).replacingOccurrences(of: "[param]", with: param)
     }
 }
